@@ -15,7 +15,7 @@ class UserHandler
   def do_POST(request, response)
     form_data = Rack::Utils.parse_query(request.body.read)
 
-    if form_data['name'].nil?
+    if form_data['name'].strip.empty?
       response.status = 400
       response.write({ status: "Bad Request", code: 400, errors: "Missing 'name' parameter" }.to_json)
       return
@@ -30,7 +30,7 @@ class UserHandler
   def do_PUT(request, response)
     form_data = Rack::Utils.parse_query(request.body.read)
 
-    if form_data['name'].nil? or form_data['id'].nil?
+    if form_data['name'].strip.empty? or form_data['id'].strip.empty?
       response.status = 400
       response.write({ status: "Bad Request", code: 400, errors: "Missing 'id' or 'name' parameter" }.to_json)
       return
@@ -45,7 +45,7 @@ class UserHandler
   def do_DELETE(request, response)
     form_data = Rack::Utils.parse_query(request.body.read)
 
-    if form_data['id'].nil?
+    if form_data['id'].strip.empty?
       response.status = 400
       response.write({ status: "Bad Request", code: 400, errors: "Missing 'id' parameter" }.to_json)
       return

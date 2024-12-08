@@ -12,7 +12,7 @@ app = Proc.new do |env|
 
   handler = UserHandler.new
 
-  if normalized_path =~ %r{^/users/([^/]+)$} || normalized_path == "/users"
+  if normalized_path == /users/ || normalized_path == "/users"
     case req.request_method
     when "GET"
       res.content_type = "application/json"
