@@ -3,7 +3,6 @@ require 'sqlite3'
 class SQLiteDatabase
   def initialize
     @db = SQLite3::Database.new "rest_api_rb.db"
-    @db.results_as_hash = true
     create_users_table_sql
   end
 
