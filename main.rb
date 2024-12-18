@@ -14,7 +14,6 @@ class HTTPServer
       client = @server.accept
       request = client.readpartial(1024)
       response = @handler.handle_request(request)
-
       client.write("HTTP/1.1 #{response[:status]} OK\r\n")
       response[:headers].each { |key, value| client.write("#{key}: #{value}\r\n") }
       client.write("\r\n")
