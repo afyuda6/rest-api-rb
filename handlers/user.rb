@@ -1,4 +1,3 @@
-require 'socket'
 require 'json'
 require 'cgi'
 require_relative '../database/sqlite'
@@ -41,25 +40,25 @@ class UserHandler
   end
 
   def handle_request(request)
-    method, path, _http_version = request.lines[0].split
-    body = request.split("\r\n\r\n", 2)[1]
+    method = request.request_method
+    path = request.path_info
+    body = request.body.read
     if path == '/users' || path == '/users/'
       case method
       when 'GET'
-        response = handle_read_users
+        handle_read_users
       when 'POST'
-        response = handle_create_user(body)
+        handle_create_user(body)
       when 'PUT'
-        response = handle_update_user(body)
+        handle_update_user(body)
       when 'DELETE'
-        response = handle_delete_user(body)
+        handle_delete_user(body)
       else
-        response = { status: 405, headers: { "Content-Type" => "application/json" }, body: { status: "Method Not Allowed", code: 405 }.to_json }
+        { status: 405, headers: { "Content-Type" => "application/json" }, body: { status: "Method Not Allowed", code: 405 }.to_json }
       end
     else
-      response = { status: 404, headers: { "Content-Type" => "application/json" }, body: { status: "Not Found", code: 404 }.to_json }
+      { status: 404, headers: { "Content-Type" => "application/json" }, body: { status: "Not Found", code: 404 }.to_json }
     end
-    response
   end
 
   def initialize
