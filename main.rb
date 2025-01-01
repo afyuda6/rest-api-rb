@@ -25,7 +25,7 @@ class App
   end
 end
 
-port = ENV['PORT'] ? ENV['PORT'].to_i : 6006
+port = ENV['PORT'] ? ENV['PORT'].to_i : 6001
 
 Thin::Server.start('0.0.0.0', port) do
   run App.new
