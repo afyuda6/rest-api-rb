@@ -4,7 +4,7 @@ require_relative 'handlers/user'
 
 SQLiteDatabase.new.drop_users_table_sql
 
-class App
+class Main
   def call(env)
     request = Rack::Request.new(env)
     if request.request_method == 'OPTIONS'
@@ -28,5 +28,5 @@ end
 port = ENV['PORT'] ? ENV['PORT'].to_i : 6001
 
 Thin::Server.start('0.0.0.0', port) do
-  run App.new
+  run Main.new
 end
