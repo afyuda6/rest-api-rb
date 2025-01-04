@@ -5,7 +5,7 @@ RUN apt-get update && \
     sqlite3 libsqlite3-dev libssl-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN gem install sqlite3 thin
+RUN gem install sqlite thin
 
 WORKDIR /rest-api-rb
 
